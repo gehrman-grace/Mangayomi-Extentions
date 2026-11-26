@@ -1,4 +1,4 @@
-# Mangayomi Grey extensions
+# Mangayomi extensions
 
 Manga and anime sources for [Mangayomi](https://github.com/kodjodevf/mangayomi), in plain JavaScript.
 

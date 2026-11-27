@@ -1,0 +1,20 @@
+[
+    {
+        "id": "webnovel",
+        "name": "Webnovel",
+        "site": "https://www.webnovel.com",
+        "lang": "en",
+        "version": "1.0.0",
+        "url": "https://raw.githubusercontent.com/gehrman-grace/Mangayomi-Extentions/main/javascript/novel/src/en/webnovel.js",
+        "iconUrl": "https://www.google.com/s2/favicons?sz=256&domain=https://webnovel.com"
+    },
+    {
+        "id": "novelfire",
+        "name": "Novel Fire",
+        "site": "https://novelfire.net",
+        "lang": "en",
+        "version": "1.0.0",
+        "url": "https://raw.githubusercontent.com/gehrman-grace/Mangayomi-Extentions/main/javascript/novel/src/en/novelfire.js",
+        "iconUrl": "https://www.google.com/s2/favicons?sz=256&domain=https://novelfire.net"
+    }
+]

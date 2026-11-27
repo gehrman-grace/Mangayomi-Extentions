@@ -7,7 +7,7 @@ Manga, anime and novel sources for [Mangayomi](https://github.com/kodjodevf/mang
 | Name | Type | Site | Version |
 |------|------|------|---------|
 | Asura Scans | Manga | https://asurascans.com | 0.3.0 |
-| Manga Fire | Manga | https://mangafire.to | 1.0.0 |
+| Manga Fire | Manga | https://mangafire.to | 1.0.1 |
 | Vortex Scans | Manga | https://vortexscans.org | 1.0.0 |
 | Manga Pill | Manga | https://mangapill.com | 2.0.0 |
 | Atsumaru | Manga | https://atsu.moe | 1.0.2 |
@@ -28,6 +28,7 @@ javascript/manga/src/en/*.js                manga sources
 javascript/manga/src/all/mangafire.js       Manga Fire (multi-language capable)
 javascript/anime/src/en/*.js                anime sources
 javascript/novel/src/en/*.js                novel sources (LNReader plugin format)
+javascript/icon/*.png                       source icons (the app decodes PNG, not SVG)
 ```
 
 ## Adding the repository

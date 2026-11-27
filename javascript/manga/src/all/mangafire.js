@@ -5,10 +5,11 @@ const mangayomiSources = [
     lang: "en",
     baseUrl: "https://mangafire.to",
     apiUrl: "https://mangafire.to",
-    iconUrl: "https://mangafire.to/assets/mangafire/favicon.svg",
+    iconUrl:
+      "https://raw.githubusercontent.com/gehrman-grace/Mangayomi-Extentions/main/javascript/icon/en.mangafire.png",
     typeSource: "single",
     itemType: 0,
-    version: "1.0.0",
+    version: "1.0.1",
     dateFormat: "",
     dateFormatLocale: "",
     isManga: true,

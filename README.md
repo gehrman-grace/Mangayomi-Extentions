@@ -10,12 +10,12 @@ Manga, anime and novel sources for [Mangayomi](https://github.com/kodjodevf/mang
 | Manga Fire | Manga | https://mangafire.to | 1.0.0 |
 | Vortex Scans | Manga | https://vortexscans.org | 1.0.0 |
 | Manga Pill | Manga | https://mangapill.com | 2.0.0 |
-| Atsumaru | Manga | https://atsu.moe | 1.0.0 |
+| Atsumaru | Manga | https://atsu.moe | 1.0.2 |
 | HiAnime | Anime | https://hianime.fm | 0.7.4 |
 | AniKoto | Anime | https://anikototv.bz | 0.4.31 |
 | Anidap | Anime | https://anidap.lol | 1.10.6 |
-| Webnovel | Novel | https://www.webnovel.com | 1.0.0 |
 | Novel Fire | Novel | https://novelfire.net | 1.0.0 |
+| Royal Road | Novel | https://www.royalroad.com | 1.0.0 |
 
 ## Layout
 
@@ -63,12 +63,12 @@ Novel sources use the LNReader plugin format: the app evaluates the file from
 (`novel_index.json`) lists `id`/`name`/`site`/`lang`/`version`/`url`/`iconUrl`
 per source and the app installs it as an LNReader-format novel extension.
 
-- **Webnovel** reads the mobile Next.js site (`m.webnovel.com`): listings and
-  search come from the page's `__NEXT_DATA__`, the chapter list from
-  `/book/<id>/catalog`, and chapter text from the chapter page. Most chapters
-  after the latest few are locked by Webnovel itself (Fast Pass/coins); those
-  are marked 🔒 and the reader explains why there is no text. The site is
-  behind Cloudflare bot management: if a request is challenged, open
-  webnovel.com in the app's WebView once and retry.
 - **Novel Fire** is parsed from server-rendered HTML (listings, search, the
   paginated chapter list at `/book/<slug>/chapters?page=n`, and `#content`).
+- **Royal Road** is parsed from server-rendered HTML: popular (`/fictions/
+  active-popular`), latest (`/fictions/latest-updates`) and search results all
+  use the same fiction cards, the fiction page embeds its chapter list as
+  `window.chapters` JSON, and the chapter text is in `.chapter-content` (the
+  per-page decoy paragraphs hidden by an inline stylesheet are removed). The
+  site's Cloudflare check needs browser headers; if it still comes back, open
+  royalroad.com in the app's WebView once and retry.

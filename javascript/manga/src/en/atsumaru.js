@@ -12,7 +12,7 @@ const mangayomiSources = [
     "hasCloudflare": false,
     "sourceCodeUrl": "",
     "apiUrl": "",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "isManga": true,
     "itemType": 0,
     "isFullData": false,
@@ -103,18 +103,36 @@ class DefaultExtension extends MProvider {
     );
   }
 
+  // The CDN's -small/-medium/-large files are AVIF, which the app's image
+  // decoder only loads intermittently. The original jpg/png always works.
+  toCoverUrl(item) {
+    if (item == null) return "";
+    var poster = item.poster;
+    if (typeof poster == "string") poster = { image: poster };
+    var candidates = [
+      item.image,
+      poster && poster.image,
+      item.largeImage,
+      item.mediumImage,
+      item.smallImage,
+      poster && poster.largeImage,
+      poster && poster.mediumImage,
+      poster && poster.smallImage,
+      item.posterMedium,
+      item.posterSmall,
+    ];
+    for (var i = 0; i < candidates.length; i++) {
+      var value = candidates[i];
+      if (value != null && value != "") return this.toImageUrl(value);
+    }
+    return "";
+  }
+
   toManga(item) {
     return {
       name: item.title || item.englishTitle || "",
       link: `${this.getBaseUrl()}/manga/${item.id}`,
-      imageUrl: this.toImageUrl(
-        item.posterMedium ||
-          item.mediumImage ||
-          item.posterSmall ||
-          item.smallImage ||
-          item.poster ||
-          item.image
-      ),
+      imageUrl: this.toCoverUrl(item),
     };
   }
 
@@ -333,7 +351,7 @@ class DefaultExtension extends MProvider {
     return {
       name: item.title || item.englishTitle || "",
       link: `${this.getBaseUrl()}/manga/${mangaId}`,
-      imageUrl: this.toImageUrl(item.poster || item.posterMedium || item.image),
+      imageUrl: this.toCoverUrl(item),
       description: this.buildDescription(item),
       author: this.parseAuthors(item.authors, "Author") || this.parseAuthors(item.authors, null),
       artist: this.parseAuthors(item.authors, "Artist"),

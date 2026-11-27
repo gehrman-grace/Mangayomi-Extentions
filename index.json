@@ -100,7 +100,7 @@
         "hasCloudflare": false,
         "sourceCodeUrl": "https://raw.githubusercontent.com/gehrman-grace/Mangayomi-Extentions/main/javascript/manga/src/en/atsumaru.js",
         "apiUrl": "",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "isManga": true,
         "itemType": 0,
         "isFullData": false,

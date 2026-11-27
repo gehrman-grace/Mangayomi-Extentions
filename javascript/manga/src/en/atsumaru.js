@@ -12,7 +12,7 @@ const mangayomiSources = [
     "hasCloudflare": false,
     "sourceCodeUrl": "",
     "apiUrl": "",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "isManga": true,
     "itemType": 0,
     "isFullData": false,
@@ -103,17 +103,28 @@ class DefaultExtension extends MProvider {
     );
   }
 
-  // The CDN's -small/-medium/-large files are AVIF, which the app's image
-  // decoder only loads intermittently. The original jpg/png always works.
-  toCoverUrl(item) {
+  // The API only advertises the -small/-medium/-large derivatives as AVIF,
+  // which the app's image decoder loads only intermittently, but the CDN
+  // serves the same derivative names as WebP too: -medium.webp is 360x540
+  // and ~60 KB, against 1-6 MB for some originals. "medium" for grids and
+  // "large" for the detail header (400x600).
+  coverVariant(path, size) {
+    if (path == null || path == "") return "";
+    var base = this.toImageUrl(path)
+      .replace(/\.[a-z0-9]+$/i, "")
+      .replace(/-(small|medium|large)$/i, "");
+    return `${base}-${size}.webp`;
+  }
+
+  toCoverUrl(item, size) {
     if (item == null) return "";
     var poster = item.poster;
     if (typeof poster == "string") poster = { image: poster };
     var candidates = [
+      item.mediumImage,
       item.image,
       poster && poster.image,
       item.largeImage,
-      item.mediumImage,
       item.smallImage,
       poster && poster.largeImage,
       poster && poster.mediumImage,
@@ -123,7 +134,9 @@ class DefaultExtension extends MProvider {
     ];
     for (var i = 0; i < candidates.length; i++) {
       var value = candidates[i];
-      if (value != null && value != "") return this.toImageUrl(value);
+      if (value != null && value != "") {
+        return this.coverVariant(value, size || "medium");
+      }
     }
     return "";
   }
@@ -351,7 +364,7 @@ class DefaultExtension extends MProvider {
     return {
       name: item.title || item.englishTitle || "",
       link: `${this.getBaseUrl()}/manga/${mangaId}`,
-      imageUrl: this.toCoverUrl(item),
+      imageUrl: this.toCoverUrl(item, "large"),
       description: this.buildDescription(item),
       author: this.parseAuthors(item.authors, "Author") || this.parseAuthors(item.authors, null),
       artist: this.parseAuthors(item.authors, "Artist"),
